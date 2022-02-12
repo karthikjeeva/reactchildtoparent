@@ -1,26 +1,33 @@
 import React, { Component } from 'react';
 import Child from  './child';
+import { useRef } from "react";
 
 const Form =  (props) => {
-    
+    const childref = useRef();
+    const somefunc = () => {
+        console.log("called");
+        console.log(childref.current.getAlert())
+    }
+    console.log(childref)
       return (
           <div>
-            <button onClick={() => {  props.thisobj.parentfunc()}}>Click</button>         
+            <Child ref={childref}/>
+            <button onClick={() => { somefunc() }}>Click</button>
           </div>
       );  
 }
 
 class Parent extends Component {
    
-    parentfunc = () => {
-        console.log("called")
-        this.child.getAlert();
+    parentfunc = (ref) => {
+        console.log(ref)
+        //this.child.getAlert();
     }
   render() {
     return (
       <div>
-        <Child ref={instance => { this.child = instance; }} />
-        <Form thisobj={this}/>        
+      
+        <Form callparent = {() => {this.parentfunc()}}/>        
       </div>
     );
   }
