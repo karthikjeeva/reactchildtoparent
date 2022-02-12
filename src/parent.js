@@ -1,7 +1,17 @@
 import React, { Component } from 'react';
 import Child from  './child';
 
+const Form =  (props) => {
+    
+      return (
+          <div>
+            <button onClick={() => {  props.thisobj.parentfunc()}}>Click</button>         
+          </div>
+      );  
+}
+
 class Parent extends Component {
+   
     parentfunc = () => {
         console.log("called")
         this.child.getAlert();
@@ -10,7 +20,7 @@ class Parent extends Component {
     return (
       <div>
         <Child ref={instance => { this.child = instance; }} />
-        <button onClick={() => {  this.parentfunc()}}>Click</button>
+        <Form thisobj={this}/>        
       </div>
     );
   }
